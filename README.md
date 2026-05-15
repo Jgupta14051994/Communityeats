@@ -1,271 +1,101 @@
-# CommuniEats: Community-Powered Last-Mile Delivery
+# CommuniEats: Product Case Study
 
-Rethinking last-mile delivery through community collaboration
+**Community-powered last-mile delivery — rethinking who makes the trip.**
 
-## Executive Summary
+Live: [communieats-app.vercel.app](https://communieats-app.vercel.app) · Built with Next.js + TypeScript
 
-CommuniEats is a live marketplace that reimagines delivery economics by offering customers three fulfillment options with corresponding discounts. By matching orders with neighbors already traveling to that area, CommuniEats reduces delivery costs for everyone while leveraging existing neighborhood travel patterns.
+---
 
 ## The Problem
 
-**Delivery fees are economically broken.**
+A $42 meal costs $56 after fees — a 33% markup for a single dedicated courier trip.
 
-A $42 meal costs customers $56 after fees—a 33% markup for a single dedicated trip. The root issue isn't the fee itself; it's the model:
+The root issue isn't the fee. It's the model: **every order creates its own trip**, even when a neighbor is already headed to that restaurant. Platforms optimize courier routing but ignore the most efficient logistics network that already exists — people's natural travel patterns.
 
-**Every order creates its own trip. Every trip requires its own courier.**
+**Prior art:** JoyRun (2017) raised $10M on the same insight, acquired by Walmart in 2020. Still not mainstream. Why? The trust and density problems were never solved.
 
-This means platforms create redundant transportation even when neighbors are already traveling those exact routes. The solution isn't better logistics—it's better collaboration.
+---
 
-## The Solution: Three-Tier Fulfillment Model
+## The Solution: Three-Tier Fulfillment
 
-CommuniEats lets customers choose how they want their order fulfilled, with pricing that rewards community participation:
+| Tier | Mechanism | Customer Discount | Core Tradeoff |
+|---|---|---|---|
+| Traditional Delivery | Dedicated courier | 0% | Convenience over cost |
+| Self-Pickup | Customer collects order | 10% | Time for savings |
+| Community Pickup | Neighbor picks up en route | 30% | Trust for significant savings |
 
-### 1. Traditional Delivery
-- **What**: Full-service courier handles pickup and delivery
-- - **Cost**: Full price (0% discount)
-  - - **Best for**: Convenience-first customers
-    - - **Community impact**: Creates dedicated delivery trip
-     
-      - ### 2. Self-Pickup
-      - - **What**: You pick up your order directly from the restaurant
-        - - **Cost**: 10% discount
-          - - **Best for**: Budget-conscious local shoppers
-            - - **Community impact**: Zero delivery footprint
-             
-              - ### 3. Community Pickup ⭐ *The Core Innovation*
-              - - **What**: A neighbor in your area picks up your order while running their own errands
-                - - **Cost**: 30% discount
-                  - - **How it works**:
-                    -   - System identifies neighbors heading to that area
-                        -   - Shows you available community delivery partners
-                            -   - Neighbor picks up your order on their route
-                                -   - You both save money
-                                    - - **Best for**: Cost-saving customers in active neighborhoods
-                                      - - **Community impact**: Eliminates wasteful dedicated trips
-                                       
-                                        - ## How It Works: The Community Pickup Flow
-                                       
-                                        - ```
-                                          1. Customer selects their fulfillment preference at checkout
-                                             ↓
-                                          2. System displays available delivery options + pricing
-                                             • Traditional Delivery: $42.00
-                                             • Self Pickup: $37.80 (10% off)
-                                             • Community Pickup: $29.40 (30% off) ← Available neighbors shown here
-                                             ↓
-                                          3. If Community Pickup selected:
-                                             • Shows list of neighbors heading to your area
-                                             • Displays neighbor profile & availability window
-                                             ↓
-                                          4. Neighbor accepts the delivery
-                                             • Picks up your order on their existing route
-                                             • Delivers to your location
-                                             ↓
-                                          5. Order complete
-                                             • You save 30%
-                                             • Neighbor gets a small incentive
-                                             • One less delivery truck on the road
-                                          ```
+Community Pickup is the core innovation — and the hardest problem.
 
-                                          ## Product Features (Live)
+---
 
-                                          ✅ **Dynamic pricing by fulfillment method**
-                                          - Real-time discount calculation
-                                          - - Transparent cost breakdown at checkout
-                                            - - Automatic savings calculation
-                                             
-                                              - ✅ **Neighbor availability matching**
-                                              - - Shows community delivery partners in your area
-                                                - - Displays delivery timeframe
-                                                  - - Neighbor profile information
-                                                   
-                                                    - ✅ **Three fulfillment mode toggle**
-                                                    - - Seamless switching between options
-                                                      - - Instant price recalculation
-                                                        - - Visual comparison of discounts
-                                                         
-                                                          - ✅ **Configuration-driven UI**
-                                                          - - No custom design required
-                                                            - - Rapid deployment and iteration
-                                                              - - Solo-developer friendly architecture
-                                                               
-                                                                - ## Why This Works
-                                                               
-                                                                - ### The Economics
-                                                                - | User Type | Motivation |
-                                                                - |-----------|-----------|
-                                                                - | **Budget-conscious customers** | Save 30% on their order |
-                                                                - | **Neighbors delivering** | Get incentivized for their existing trip |
-                                                                - | **Platform** | Reduce delivery infrastructure costs |
-                                                                - | **Environment** | Fewer redundant vehicles on roads |
-                                                               
-                                                                - ### The Insight
-                                                                - Neighbors aren't strangers with delivery apps—they're already traveling. CommuniEats simply **coordinates existing trips rather than creating new ones**.
-                                                               
-                                                                - ## Tech Stack
-                                                               
-                                                                - ### Frontend
-                                                                - - **Framework**: Next.js with React
-                                                                  - - **Language**: TypeScript
-                                                                    - - **Styling**: Tailwind CSS
-                                                                      - - **UI Pattern**: Configuration-based components (no custom design)
-                                                                       
-                                                                        - ### Backend
-                                                                        - - **Compute**: Vercel Functions
-                                                                          - - **API**: Next.js API Routes
-                                                                            - - **Matching Logic**: Geolocation-based neighbor correlation
-                                                                             
-                                                                              - ### Infrastructure & Database
-                                                                              - - **Deployment**: Vercel (Edge network)
-                                                                                - - **Database**: PostgreSQL/MongoDB (configurable)
-                                                                                  - - **Maps/Geolocation**: Real-time location services
-                                                                                    - - **Payment**: Stripe integration for discount processing
-                                                                                     
-                                                                                      - ## Architecture Overview
-                                                                                     
-                                                                                      - ```
-                                                                                        CommuniEats/
-                                                                                        ├── components/
-                                                                                        │   ├── Checkout/
-                                                                                        │   │   ├── FulfillmentModeSelector.tsx    # Toggle between 3 options
-                                                                                        │   │   ├── PricingDisplay.tsx             # Shows discount breakdown
-                                                                                        │   │   └── NeighborAvailability.tsx       # Lists nearby delivery partners
-                                                                                        │   ├── DeliveryMap/
-                                                                                        │   │   └── NeighborLocation.tsx           # Real-time tracking
-                                                                                        │   └── UI/                                # Config-driven components
-                                                                                        │
-                                                                                        ├── pages/
-                                                                                        │   ├── checkout.tsx                       # Fulfillment mode selection
-                                                                                        │   ├── api/
-                                                                                        │   │   ├── matching/neighbors.ts          # Find neighbors in area
-                                                                                        │   │   ├── pricing/calculate.ts           # Discount calculation
-                                                                                        │   │   └── orders/create.ts               # Order placement
-                                                                                        │   └── delivery.tsx                       # Active order tracking
-                                                                                        │
-                                                                                        ├── lib/
-                                                                                        │   ├── geolocation/                       # Distance calculation
-                                                                                        │   ├── matchmaking/                       # Neighbor-to-order correlation
-                                                                                        │   └── pricing/                           # Discount logic
-                                                                                        │
-                                                                                        ├── config/
-                                                                                        │   ├── discounts.json                     # 0%, 10%, 30% discount tiers
-                                                                                        │   └── ui-config.json                     # Component configuration
-                                                                                        │
-                                                                                        └── styles/                                # Tailwind CSS
-                                                                                        ```
+## Key Product Decisions
 
-                                                                                        ## Product Research & Unanswered Questions
+### 1. Why 30% for Community Pickup?
 
-                                                                                        While the core product is live, several important questions remain being explored:
+**The question:** What discount makes the trust trade-off worth it for customers?
 
-                                                                                        ### Trust Problem
-                                                                                        - How do we ensure neighbor reliability and food safety?
-                                                                                        - - What happens when an order goes wrong?
-                                                                                          - - How do we handle disputes fairly?
-                                                                                           
-                                                                                            - ### Density Problem
-                                                                                            - - Does this work in suburban/rural areas with lower population density?
-                                                                                              - - What's the minimum user density needed for viable neighbor matching?
-                                                                                               
-                                                                                                - ### Timing Problem
-                                                                                                - - Can we reliably match neighbor routes with order requests in real-time?
-                                                                                                  - - How do we handle urgent orders with limited neighbor availability?
-                                                                                                   
-                                                                                                    - ### Incentive Problem
-                                                                                                    - - Is the current discount structure sustainable?
-                                                                                                      - - Do neighbors need additional incentives beyond helping their community?
-                                                                                                       
-                                                                                                        - ## Market Context
-                                                                                                       
-                                                                                                        - **JoyRun (2017)** proved this model was viable, raising $10M Series A with 2M+ users before acquisition by Walmart in 2020. Yet neighbor-powered delivery remains absent from mainstream consumer apps, suggesting the barrier isn't technology—it's solving one of the problems above at scale.
-                                                                                                       
-                                                                                                        - ## Getting Started
-                                                                                                       
-                                                                                                        - ### Prerequisites
-                                                                                                       
-                                                                                                        - ```
-                                                                                                          Node.js >= 18.0.0
-                                                                                                          npm >= 9.0.0
-                                                                                                          ```
-                                                                                                          
-                                                                                                          ### Installation
-                                                                                                          
-                                                                                                          ```bash
-                                                                                                          git clone https://github.com/Jgupta14051994/Communityeats.git
-                                                                                                          cd Communityeats
-                                                                                                          npm install
-                                                                                                          ```
-                                                                                                          
-                                                                                                          ### Development
-                                                                                                          
-                                                                                                          ```bash
-                                                                                                          npm run dev
-                                                                                                          # Open http://localhost:3000
-                                                                                                          ```
-                                                                                                          
-                                                                                                          ### Production Deployment
-                                                                                                          
-                                                                                                          ```bash
-                                                                                                          npm run build
-                                                                                                          npm start
+**Options considered:**
+- 15%: Too low — not enough to change behavior
+- 20%: Marginal — some uptake, weak habit formation
+- 30%: Creates genuine "wow" moment on first use, drives word-of-mouth
 
-                                                                                                          # Or deploy to Vercel (recommended)
-                                                                                                          vercel deploy
-                                                                                                          ```
-                                                                                                          
-                                                                                                          ## Live Product
-                                                                                                          
-                                                                                                          **Try it now**: [communieats-app.vercel.app](https://communieats-app.vercel.app)
-                                                                                                          
-                                                                                                          **Pro tip**: The fulfillment mode toggle at checkout is where the entire product mechanic lives. Try switching between Traditional Delivery → Self Pickup → Community Pickup to see the discount structure in action.
-                                                                                                          
-                                                                                                          ## What Makes This Different
-                                                                                                          
-                                                                                                          1. **Configuration over custom design** - Entire UI driven by config files, enabling solo development
-                                                                                                          2. 2. **Real product, real discounts** - Not a mockup; actual checkout with live pricing
-                                                                                                             3. 3. **Problem exploration focus** - The code matters less than solving trust/density/timing challenges
-                                                                                                                4. 4. **Built with Claude Code** - Entire product partner approach (no dedicated designer)
-                                                                                                                  
-                                                                                                                   5. ## Contributing & Feedback
-                                                                                                                  
-                                                                                                                   6. We're looking for perspectives from people who've worked on:
-                                                                                                                   7. - Marketplace incentive design
-                                                                                                                      - - Last-mile logistics
-                                                                                                                        - - Community-driven commerce
-                                                                                                                          - - P2P transaction trust systems
-                                                                                                                           
-                                                                                                                            - **Key questions we'd love your input on:**
-                                                                                                                            - - Which problem (trust/density/timing/incentives) is the biggest blocker?
-                                                                                                                              - - Have you seen this model work elsewhere?
-                                                                                                                                - - What would make you trust a neighbor with your food order?
-                                                                                                                                 
-                                                                                                                                  - **How to contribute:**
-                                                                                                                                  - - [Open an Issue](https://github.com/Jgupta14051994/Communityeats/issues) - Report bugs or request features
-                                                                                                                                    - - [GitHub Discussions](https://github.com/Jgupta14051994/Communityeats/discussions) - Debate the business model
-                                                                                                                                      - - Email feedback to: **Jyotirgupta@gmail.com**
-                                                                                                                                       
-                                                                                                                                        - ## Contact & Resources
-                                                                                                                                       
-                                                                                                                                        - | Channel | Contact |
-                                                                                                                                        - |---------|---------|
-                                                                                                                                        - | **Product Questions** | [GitHub Issues](https://github.com/Jgupta14051994/Communityeats/issues) |
-                                                                                                                                        - | **Strategy Discussion** | [GitHub Discussions](https://github.com/Jgupta14051994/Communityeats/discussions) |
-                                                                                                                                        - | **Live App** | [communieats-app.vercel.app](https://communieats-app.vercel.app) |
-                                                                                                                                        - | **Email** | Jyotirgupta@gmail.com |
-                                                                                                                                        - | **LinkedIn** | [Jyoti Gupta](https://linkedin.com/in/jyotigupta) |
-                                                                                                                                       
-                                                                                                                                        - ## Important Note
-                                                                                                                                       
-                                                                                                                                        - This repository documents both **product thinking and working code**. The three-tier fulfillment mechanic with discounts is fully functional. However, deeper questions about trust, density, and timing remain open research problems. See [DECISION_LOG.md](DECISION_LOG.md) for detailed exploration of these challenges.
-                                                                                                                                       
-                                                                                                                                        - ## License
-                                                                                                                                       
-                                                                                                                                        - MIT License - See LICENSE for details
-                                                                                                                                       
-                                                                                                                                        - ---
-                                                                                                                                        
-                                                                                                                                        **Built**: Solo development with Claude Code partnership
-                                                                                                                                        **Live Since**: May 15, 2026
-                                                                                                                                        **Status**: Active product with ongoing research
-                                                                                                                                        **Your Email**: Jyotirgupta@gmail.com
-                                                                                                                                        
+**Decision:** 30% discount, reviewed after 500 community transactions. Discount level is a lever, not a constant.
+
+**What would prove this wrong:** If >40% of community pickups result in complaints or refund requests, trust cost exceeds discount value.
+
+---
+
+### 2. The Trust Problem
+
+P2P delivery fails when trust fails. Three trust risks identified:
+
+| Risk | Mitigation |
+|---|---|
+| Order tampering | Sealed, tamper-evident packaging required at restaurant |
+| No-show / late delivery | 15-min grace window, then automatic fallback to courier |
+| Identity fraud | Verified community member profile (rating + history gated) |
+
+**Design principle:** Remove trust decisions from the user. The system handles fallback — customers should never feel "exposed" if a community pickup fails.
+
+---
+
+### 3. The Density Problem
+
+Community pickup only works when supply (neighbors traveling that route) meets demand (orders going that direction). This is a cold-start problem.
+
+**Approach:** Launch hyper-locally — one zip code at a time. Reach critical density before expanding. Measure: community fulfillment rate per zip code. Target: >25% of eligible orders fulfilled by community within 90 days of launch.
+
+---
+
+## What I'd Do Differently
+
+1. **Build the rating system earlier.** Community picker ratings were deprioritized for launch. They're actually a trust-building flywheel — should have been Day 1.
+2. **Instrument fallback events from the start.** Knowing *why* community pickups fall back (late, no-show, opted out) is the most important signal for improving reliability.
+3. **Talk to restaurants sooner.** Packaging requirements were designed without restaurant input. Two rounds of revision could have been one.
+
+---
+
+## Frameworks Used
+
+- [RICE Prioritization](../product-management-toolkit) — Feature sequencing
+- [Opportunity Scoring](../product-management-toolkit) — Evaluating fulfillment model variants
+- [Decision Log Template](../product-management-toolkit) — Documenting all major product choices
+- [User Interview Guide](../product-management-toolkit) — Customer discovery (n=14 before spec)
+
+---
+
+## Repo Structure
+
+```
+Communityeats/
+├── README.md              ← This file (product case study)
+└── docs/
+    ├── prd.md             ← Full product requirements document
+    ├── trust-model.md     ← Trust & safety design decisions
+    ├── prioritization.md  ← RICE scoring for all features
+    └── decision-log.md    ← Chronological decision history
+```
+
+---
+
+*Questions or feedback? Open an issue — I use them to work through product thinking publicly.*
